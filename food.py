@@ -10,7 +10,7 @@ class Food:
 
 		self.screen = self.parent.enviroment
 
-		self.size = 5
+		self.size = 2.5
 
 	@dispatch(int)
 	def __init__(self, amm):

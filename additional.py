@@ -35,7 +35,10 @@ class Canvas:
 		self.color = (255, 255, 255)
 		self.hollow = True
 
-		self.font = pg.font.SysFont("Monospace", 12)
+		self.fontName = "Monotype"
+		self.font = None
+		self.textFont(self.fontName)
+
 
 	def show(self):
 		screen.blit(self.image, self.rect)
@@ -87,11 +90,19 @@ class Canvas:
 		else:
 			pg.draw.rect(self.image, self.color, (x, y, w, h))
 
-
 	def text(self, message, x, y):
 		text = self.font.render(message, True, self.color)
 		rect = text.get_rect(topleft=(x, y))
 		self.image.blit(text, rect)
+
+	def textFont(self, name):
+		try:
+			self.font = pg.font.Font(name, 12)
+		except:
+			try:
+				self.font = pg.font.SysFont(name, 12)
+			except:
+				raise OSError("No font file or system font found by that name.")
 
 
 ############################################## GLOBAL FUNCTIONS #########################################################
@@ -115,6 +126,7 @@ def stroke(r, g=False, b=False):
 		color = (r, r, r)
 	else:
 		color = (r, g, b)
+
 def random(a, b=None):
 	if b:
 		return randint(a, b)
@@ -128,6 +140,7 @@ def strokeWeight(i):
 def point(x, y):
 	global weight
 	circle(x, y, weight)
+
 def noFill():
 	global noFill
 	noFill = True
@@ -145,14 +158,21 @@ def rect(x, y, w, h):
 	else:
 		pg.draw.rect(screen, color, (x, y, w, h))
 
-fonts = {}
-for i in range(10, 72, 2):
-	fonts[i] = pg.font.SysFont("Monospace", i)
-font = fonts[12]
+fontSize = 12
+fontName = "Monospace"
+font = None
+
 def textSize(i):
-	global font, fonts
-	if i in fonts.keys():
-		font = fonts[i]
+	global font, fontName, fontSize
+	try:
+		font = pg.font.Font(fontName, i)
+		fontSize = i
+	except:
+		try:
+			font = pg.font.SysFont(fontName, i)
+			fontSize = i
+		except:
+			raise OSError("No font file or system font found by that name.")
 
 def text(message, x, y):
 	global color, font
@@ -160,8 +180,32 @@ def text(message, x, y):
 	rect = text.get_rect(topleft=(x, y))
 	screen.blit(text, rect)
 
+def textFont(name):
+	global font, fontSize, fontName
+	try:
+		font = pg.font.Font(name, fontSize)
+		fontName = name
+	except:
+		try:
+			font = pg.font.SysFont(name, fontSize)
+			fontName = name
+		except:
+			raise OSError("No font file or system font found by that name.")
+
+textFont(fontName)
+textSize(fontSize)
+
 def randomBool():
 	return random(1) > 0.5
+
+
+def formatSeconds(sec):
+	seconds = sec % (24 * 3600)
+	hours = seconds // 3600
+	seconds %= 3600
+	minutes = seconds // 60
+	seconds %= 60
+	return (int(hours), int(minutes), seconds)
 
 #################################### PERLIN NOISE ####################################
 def noise(x=randf(-1,1), y=randf(-1,1), z=randf(-1,1)):
