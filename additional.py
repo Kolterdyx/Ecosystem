@@ -1,4 +1,5 @@
-from random import randint, uniform as randf, choice
+from random import randint, uniform, choice
+import random
 import pygame as pg
 import pgui
 from pgui import Button, Entry, Slider, CheckBox
@@ -8,6 +9,7 @@ import re
 import pickle, json
 import os
 from pprint import pprint
+
 
 
 Vector = pg.math.Vector2
@@ -130,11 +132,6 @@ def stroke(r, g=False, b=False):
 	else:
 		color = (r, g, b)
 
-def random(a, b=None):
-	if b:
-		return randint(a, b)
-	else:
-		return randint(0, a)
 
 def strokeWeight(i):
 	global weight
@@ -199,7 +196,7 @@ textFont(fontName)
 textSize(fontSize)
 
 def randomBool():
-	return random(1) > 0.5
+	return randint(0,1) > 0.5
 
 
 def formatSeconds(sec):
@@ -211,7 +208,7 @@ def formatSeconds(sec):
 	return (int(hours), int(minutes), seconds)
 
 #################################### PERLIN NOISE ####################################
-def noise(x=randf(-1,1), y=randf(-1,1), z=randf(-1,1)):
+def noise(x=uniform(-1,1), y=uniform(-1,1), z=uniform(-1,1)):
 	X = int(x) & 255				  # FIND UNIT CUBE THAT
 	Y = int(y) & 255				  # CONTAINS POINT.
 	Z = int(z) & 255

@@ -8,7 +8,7 @@ plt.style.use('dark_background')
 
 index = count()
 
-	
+
 def animate(i):
     data = pd.read_csv('data.csv')
     x = data['step']
@@ -19,19 +19,19 @@ def animate(i):
     plt.cla()
 
     plt.subplot(2,2,1)
-    plt.plot(x, y1, label='Sexual cell ammount', color="#C8C800")
+    plt.plot(x, y1, label='Sexual cell ammount', color="#C8C800", linewidth=0.5)
     plt.subplot(2,2,2)
-    plt.plot(x, y2, label='Asexual cell ammount', color="#FF64FF")
+    plt.plot(x, y2, label='Asexual cell ammount', color="#FF64FF", linewidth=0.5)
     plt.subplot(2,2,3)
-    plt.plot(x, y1, label='Sexual cell ammount', color="#C8C800")
-    plt.plot(x, y2, label='Asexual cell ammount', color="#FF64FF")
+    plt.plot(x, y1, label='Sexual cell ammount', color="#C8C800", linewidth=0.5)
+    plt.plot(x, y2, label='Asexual cell ammount', color="#FF64FF", linewidth=0.5)
     plt.subplot(2,2,4)
     plt.plot(x, total, label='Total ammount', color="#999999")
 
     plt.tight_layout()
 
 
-ani = FuncAnimation(plt.gcf(), animate, interval=500)
+ani = FuncAnimation(plt.gcf(), animate, interval=1000)
 
 plt.tight_layout()
 plt.show()

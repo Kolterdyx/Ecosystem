@@ -6,7 +6,7 @@ class Food:
 	def __init__(self, parent, pos):
 		self.parent = parent
 		self.pos = pos
-		self.ammount = random(1000, 5000)
+		self.ammount = randint(1000, 5000)
 
 		self.screen = self.parent.enviroment
 

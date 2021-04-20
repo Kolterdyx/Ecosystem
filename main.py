@@ -6,6 +6,9 @@ import subprocess
 import sys
 import csv
 
+# Uncomment for a fixed simulation
+# random.seed(0)
+
 class Enviroment(Canvas):
     def __init__(self, parent, x, y, w, h):
         self.parent = parent
@@ -117,7 +120,7 @@ class Screen:
         self.simId = 0
         self.data = {}
         self.fieldnames = [
-            "simID", 
+            "simID",
             "step",
             "total_ammount",
             "total_peak_ammount",
@@ -130,7 +133,7 @@ class Screen:
         with open('data.csv', 'w') as csv_file:
             self.csv_writer = csv.DictWriter(csv_file, fieldnames=self.fieldnames)
             self.csv_writer.writeheader()
-        self.registerFreq = 50
+        self.registerFreq = 25
 
         self.minZoom = 0
 
@@ -320,7 +323,6 @@ class Screen:
 
     def restartSim(self):
         self.simId += 1
-        self.data[self.simId] = {}
         self.startTime = time.time()
         self.timeStep = 0
         self.cells = []
@@ -582,23 +584,23 @@ class Screen:
         self.pauseButton.set_label("Unpause" if self.pauseTime else "Pause")
 
     def addFood(self):
-        self.food.append(Food(self, Vector(random(self.enviroment.pos.x, self.enviroment.size.x), random(self.enviroment.pos.y, self.enviroment.size.y))))
+        self.food.append(Food(self, Vector(randint(self.enviroment.pos.x, self.enviroment.size.x), randint(self.enviroment.pos.y, self.enviroment.size.y))))
 
     def addCell(self):
         self.cells.append(Cell(self,
-                                Vector(random(self.enviroment.pos.x, self.enviroment.size.x), random(self.enviroment.pos.y, self.enviroment.size.y)),
+                                Vector(randint(self.enviroment.pos.x, self.enviroment.size.x), randint(self.enviroment.pos.y, self.enviroment.size.y)),
                                 {
-                                    "vision": random(100, 150),
-                                    "speed": random(20,50),
-                                    "appeal": random(0, 100)
+                                    "vision": randint(100, 150),
+                                    "speed": randint(20,50),
+                                    "appeal": randint(0, 100)
                                 }))
 
     def addAsexCell(self):
         self.asexcells.append(AsexCell(self,
-                                Vector(random(self.enviroment.pos.x, self.enviroment.size.x), random(self.enviroment.pos.y, self.enviroment.size.y)),
+                                Vector(randint(self.enviroment.pos.x, self.enviroment.size.x), randint(self.enviroment.pos.y, self.enviroment.size.y)),
                                 {
-                                    "vision": random(100, 150),
-                                    "speed": random(20,50)
+                                    "vision": randint(100, 150),
+                                    "speed": randint(20,50)
                                 }))
 
     def events(self):

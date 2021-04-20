@@ -21,9 +21,9 @@ class Cell:
 		self.ageCounter = 0
 		self.hunger = 0
 		self.foodWanted = 0
-		self.vel = Vector(1, 0).rotate(random(360))
+		self.vel = Vector(1, 0).rotate(randint(0, 360))
 		self.vel.scale_to_length(self.speed)
-		self.vel.rotate(random(360))
+		self.vel.rotate(randint(0, 360))
 		self.bestFood = Food(-10)
 		self.possibleFood = []
 		self.mate = None
@@ -63,7 +63,7 @@ class Cell:
 		letters = consonants+vowels
 
 
-		nameLen = random(4,7)
+		nameLen = randint(4,7)
 		self.name = [None]*nameLen
 		for i in range(nameLen):
 			if i<1:
@@ -166,7 +166,7 @@ class Cell:
 		self.age = round(self.ageCounter/self.agingThreshold)
 
 		if self.age > 15:
-			if random(0,1000) == 1:
+			if randint(0,1000) == 1:
 				self.parent.ageDeaths += 1
 				self.deathCause = "Died of old age"
 				self.die()
@@ -281,7 +281,7 @@ class Cell:
 				mate.repUrge = -self.repThreshold
 				mate.mate = None
 				mate.taken = False
-				for i in range(random(1,self.maxChildren)):
+				for i in range(randint(1,self.maxChildren)):
 					genesA = self.genes
 					genesB = mate.genes
 
@@ -293,8 +293,8 @@ class Cell:
 							genesC[i] = genesA[i]
 						else:
 							genesC[i] = genesB[i]
-						if random(100) < self.mutationRate:
-							genesC[i] += random(-5, 5)
+						if randint(0, 100) < self.mutationRate:
+							genesC[i] += randint(-5, 5)
 
 					child = Cell(self.parent, self.pos+Vector(self.size, self.size), genesC)
 					child.parents = [self.name, mate.name]
@@ -306,7 +306,7 @@ class Cell:
 				self.mate = None
 
 	def wander(self):
-		self.vel = self.vel.rotate(randf(-5, 5))
+		self.vel = self.vel.rotate(uniform(-5, 5))
 		self.move()
 
 	def die(self):
@@ -384,9 +384,9 @@ class AsexCell():
 		self.speed = self.genes["speed"]
 
 		self.hunger = 0
-		self.vel = Vector(1, 0).rotate(random(360))
+		self.vel = Vector(1, 0).rotate(randint(0, 360))
 		self.vel.scale_to_length(self.speed)
-		self.vel.rotate(random(360))
+		self.vel.rotate(randint(0, 360))
 		self.bestFood = Food(-10)
 		self.possibleFood = []
 		self.children = []
@@ -413,7 +413,7 @@ class AsexCell():
 		letters = consonants+vowels
 
 
-		nameLen = random(4,7)
+		nameLen = randint(4,7)
 		self.name = [None]*nameLen
 		for i in range(nameLen):
 			if i<1:
@@ -535,8 +535,8 @@ class AsexCell():
 		for n in range(2):
 			newGenes = self.genes
 			for i in genomes:
-				if random(100) < self.mutationRate:
-					newGenes[i] += random(-5, 5)
+				if randint(0,100) < self.mutationRate:
+					newGenes[i] += randint(-5, 5)
 			child = AsexCell(self.parent, self.pos+Vector(int(30*n), int(30*n)), newGenes)
 			child.mass = round(self.mass/2)
 			child.parents = [self.name]
@@ -548,7 +548,7 @@ class AsexCell():
 		self.divided = True
 
 	def wander(self):
-		self.vel = self.vel.rotate(randf(-5, 5))
+		self.vel = self.vel.rotate(uniform(-5, 5))
 		self.move()
 
 	def die(self):
