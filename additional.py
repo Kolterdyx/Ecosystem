@@ -4,13 +4,16 @@ import pgui
 from pgui import Button, Entry, Slider, CheckBox
 import time
 import math
+import re
+import pickle, json
+import os
+from pprint import pprint
+
 
 Vector = pg.math.Vector2
 
 pg.init()
 
-false = False
-true = True
 
 width = 1200
 height = 900
